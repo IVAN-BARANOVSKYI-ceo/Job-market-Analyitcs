@@ -1,23 +1,28 @@
 import os
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent
-
 load_dotenv(BASE_DIR / ".env")
 
-DATA_DIR = BASE_DIR / "data"
-
-RAW_DATA_DIR = DATA_DIR / "raw"
-PROCESSED_DATA_DIR = DATA_DIR / "processed"
-DATABASE_DIR = DATA_DIR / "database"
-
+# Paths
+RAW_DIR = BASE_DIR / "data" / "raw"
+DB_PATH = Path(os.getenv("DB_PATH", BASE_DIR / "data" / "database" / "jobs.db"))
+if not DB_PATH.is_absolute():
+    DB_PATH = BASE_DIR / DB_PATH
 REPORTS_DIR = BASE_DIR / "reports"
 FIGURES_DIR = REPORTS_DIR / "figures"
 
-DATABASE_PATH = BASE_DIR / "data" / "database" / "jobs.db"
+# API endpoints
+ARBEITNOW_URL = "https://www.arbeitnow.com/api/job-board-api"
+REMOTIVE_URL = "https://remotive.com/api/remote-jobs"
 
-ARBEITNOW_API_URL = "https://www.arbeitnow.com/api/job-board-api"
-
+# Collection settings
+ARBEITNOW_MAX_PAGES = int(os.getenv("ARBEITNOW_MAX_PAGES", "6"))
+REQUEST_DELAY = float(os.getenv("REQUEST_DELAY", "1.0"))
 REQUEST_TIMEOUT = 30
-MAX_RETRIES = 3
+USER_AGENT = os.getenv("USER_AGENT", "job-market-intelligence/1.0 (portfolio project)")
+
+# Analysis settings: minimum number of jobs in a group to show it in comparisons
+MIN_GROUP_SIZE = 10

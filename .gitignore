@@ -1,18 +1,18 @@
-__pycache__/
-*.py[cod]
-*.pyo
+# Environment
 .venv/
 venv/
-env/
 .env
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Data (not tracked by default)
+data/raw/*.json
+data/database/*.db
+
+# Editor
 .vscode/
 .idea/
 .DS_Store
-Thumbs.db
-.pytest_cache/
-.coverage
-htmlcov/
-data/database/*.db
-data/database/*.sqlite
-data/database/*.sqlite3
-*.log
